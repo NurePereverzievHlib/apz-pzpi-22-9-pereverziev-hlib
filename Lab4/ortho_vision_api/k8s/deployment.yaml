@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ortho-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ortho-backend
+  template:
+    metadata:
+      labels:
+        app: ortho-backend
+    spec:
+      containers:
+      - name: ortho-backend
+        image: ortho_vision_api:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DB_HOST
+          value: "postgres"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: "orthovisiondb"
+        - name: DB_USER
+          value: "postgres"
+        - name: DB_PASSWORD
+          value: "31415"
+        - name: JWT_SECRET
+          value: "super_mega_secret_token_228"
